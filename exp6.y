@@ -1,13 +1,13 @@
 %{
-  /* Definition section */
+#include"exp6.tab.h"
+extern int yylval;
 %}
-ALPHA [A-Z a-z]
-DIGIT [0-9]
-  
-/* Rule Section */
 %%
-{ALPHA}({ALPHA}|{DIGIT})*  return ID;
-{DIGIT}+                   {yylval=atoi(yytext); return ID;}
-[\n \t]                    yyterminate();
-.                          return yytext[0];
+[0-9]+  {yylval=atoi(yytext); return NUM;}
+\n      return 0;
+.       return *yytext;
 %%
+
+int yywrap(){
+    return 1;
+}
